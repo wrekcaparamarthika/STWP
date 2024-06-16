@@ -7,6 +7,7 @@ import DetailSponsor from '../components/DetailSponsor';
 import formatCurrency from '../utils/FormatCurrency';
 import formatPercentage from '../utils/FormatPercentage';
 import DetailSponsorAcc from '../components/DetailSponsorAcc';
+import TabelRabReal from '../components/TabelRabReal';
 
 export type result = {
 	source: string;
@@ -31,10 +32,15 @@ export type sponsorAcc = {
 	barang: string;
 	demand: string;
 };
+export type rab = {
+	category: string;
+	total: number;
+};
 interface Data {
 	resultDetailKupon: Array<detailKupon>;
 	resultIncome: Array<result>;
 	resultDebitKredit: Array<result>;
+	resultRab: Array<rab>;
 }
 interface Sponsorship {
 	resultGetListSponsorship: Array<listSponsor>;
@@ -62,6 +68,12 @@ const defaultDataValues: Data = {
 			total: 0,
 		},
 	],
+	resultRab: [
+		{
+			category: '',
+			total: 0,
+		},
+	],
 };
 const defaultValuesSponsorship: Sponsorship = {
 	resultGetListSponsorship: [
@@ -83,7 +95,7 @@ const defaultValuesSponsorship: Sponsorship = {
 	freshMoney: 0,
 };
 const apiOverview =
-	'https://script.googleusercontent.com/macros/echo?user_content_key=WosnFvf4KNyY4uoRNYeHWEHcX5oCdpBMYeC1rKDeSYaEUjagYEOijjTMsHBViy7Ixg6mmtCYwLHzRwd2QrwoYDdiUdAJwsGGm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOuWPvyZ4hHo_JYvXBRgHyBooU-KpXqYNC6PekCWFPIEi4JOTEmHMsa3VgtVcOvOyfxIuHZXWEjEHeAsK6iq0b4MZc57nvFmetz9Jw9Md8uu&lib=MJ7DYy4ZIPLw6Le5xgxMlEhsoTN8THAby';
+	'https://script.google.com/macros/s/AKfycbxTYbeoPGs0aIAmLauwXqtPXx4cj62iqzOepOu8NNZ27O-u5niH3qD1G5AJjJZoGUjulw/exec';
 const apiSponsor =
 	'https://script.googleusercontent.com/macros/echo?user_content_key=7p-kFrk4zq7u2g3YNVt6wB6-JdWyYfpVFZODq6cdyLhIIs3_oGzmz4Do6ishYBj2abq657vTsY7baP5UC-n1am1r-uaoV_xXm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnD9-9NUVab_Y5krUgs3Oz26TY_5GGUGvfpEFsTLCDCYCYKqHyJJ0QGMPEilE8oMmPJ4DtvSWRubPoVdOW6hhOxEaWUb3D616RA&lib=MrYGkE4O3aTIEYsGRsR-8zZY-i5frPOL6';
 const EventOverviewSections = () => {
@@ -119,6 +131,7 @@ const EventOverviewSections = () => {
 				Event Overview <br />
 				HUT. STWP - 47
 			</h1>
+			<TabelRabReal data={data.resultRab} />
 			<TableIncome data={data.resultIncome} />
 			<TableDetailKupon data={data.resultDetailKupon} />
 			<div className='w-full px-2 py-5 m-auto border lg:w-1/2 bg-slate-50 border-slate-300'>
