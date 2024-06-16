@@ -4,9 +4,11 @@ const TableHead = ({
 	children,
 	className,
 	rowSpan,
+	colSpan,
 }: React.TdHTMLAttributes<HTMLTableCellElement>) => {
 	return (
 		<td
+			colSpan={colSpan}
 			className={cn(
 				className,
 				'py-3 text-center border border-slate-300'
