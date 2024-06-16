@@ -8,6 +8,7 @@ import formatCurrency from '../utils/FormatCurrency';
 import formatPercentage from '../utils/FormatPercentage';
 import DetailSponsorAcc from '../components/DetailSponsorAcc';
 import TabelRabReal from '../components/TabelRabReal';
+import Timeline from '../components/Timeline';
 
 export type result = {
 	source: string;
@@ -41,7 +42,12 @@ interface Data {
 	resultIncome: Array<result>;
 	resultDebitKredit: Array<result>;
 	resultRab: Array<rab>;
+	resultDate: Array<date>;
 }
+export type date = {
+	category: string;
+	value: string;
+};
 interface Sponsorship {
 	resultGetListSponsorship: Array<listSponsor>;
 	resultSponsorAcc: Array<sponsorAcc>;
@@ -74,6 +80,12 @@ const defaultDataValues: Data = {
 			total: 0,
 		},
 	],
+	resultDate: [
+		{
+			category: '',
+			value: '',
+		},
+	],
 };
 const defaultValuesSponsorship: Sponsorship = {
 	resultGetListSponsorship: [
@@ -95,7 +107,7 @@ const defaultValuesSponsorship: Sponsorship = {
 	freshMoney: 0,
 };
 const apiOverview =
-	'https://script.google.com/macros/s/AKfycbxTYbeoPGs0aIAmLauwXqtPXx4cj62iqzOepOu8NNZ27O-u5niH3qD1G5AJjJZoGUjulw/exec';
+	'https://script.googleusercontent.com/macros/echo?user_content_key=TQboDIEnBaQHj_fv_rcMuVA3SyLClXnw9HvweE5XQA6_cBYBkSfgcO3WvmI-MrrWM7b9WOCsZ6AKUi459Zt93FhX44jCSS2Em5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnNGP1D0N39eoLk0fLkePM3_Iri8gJWPiLgDQSPp62kE3jq8LFmGbcS_dVU1JsPnO6_26a68i-yo52jPpUMfz6wfDoZ71kwJX4dz9Jw9Md8uu&lib=MJ7DYy4ZIPLw6Le5xgxMlEhsoTN8THAby';
 const apiSponsor =
 	'https://script.googleusercontent.com/macros/echo?user_content_key=7p-kFrk4zq7u2g3YNVt6wB6-JdWyYfpVFZODq6cdyLhIIs3_oGzmz4Do6ishYBj2abq657vTsY7baP5UC-n1am1r-uaoV_xXm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnD9-9NUVab_Y5krUgs3Oz26TY_5GGUGvfpEFsTLCDCYCYKqHyJJ0QGMPEilE8oMmPJ4DtvSWRubPoVdOW6hhOxEaWUb3D616RA&lib=MrYGkE4O3aTIEYsGRsR-8zZY-i5frPOL6';
 const EventOverviewSections = () => {
@@ -131,6 +143,7 @@ const EventOverviewSections = () => {
 				Event Overview <br />
 				HUT. STWP - 47
 			</h1>
+			<Timeline data={data.resultDate} />
 			<TabelRabReal data={data.resultRab} />
 			<TableIncome data={data.resultIncome} />
 			<TableDetailKupon data={data.resultDetailKupon} />
