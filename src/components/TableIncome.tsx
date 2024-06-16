@@ -33,7 +33,9 @@ const TableIncome = ({ data }: { data: Array<result> }) => {
 							key={index}
 							className={index % 2 === 0 ? '' : 'bg-slate-50'}>
 							<TableBody>{item.source}</TableBody>
-							<TableBody>{formatCurrency(item.total)}</TableBody>
+							<TableBody className='text-end'>
+								{formatCurrency(item.total)}
+							</TableBody>
 						</tr>
 					)}
 				/>
