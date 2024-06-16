@@ -1,4 +1,3 @@
-import React from 'react';
 import Table, { TableBody, TableHead } from './Table';
 import { rab } from '../Sections/EventOverviewSections';
 import Map from '../utils/Map';
