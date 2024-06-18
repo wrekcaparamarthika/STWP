@@ -24,7 +24,7 @@ const DefaultDataOverview: DataOverview = {
 	resultRab: [
 		{
 			category: '',
-			total: 0,
+			total: '',
 		},
 	],
 	resultDate: [
