@@ -1,11 +1,11 @@
 import React from 'react';
-import { sponsorAcc } from '../Sections/x';
 import { Tabel, TabelBody, TabelHead } from './Tabel';
 import Map from '../utils/Map';
 import formatCurrency from '../utils/FormatCurrency';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-const DetailSponsorAcc = ({ data }: { data: sponsorAcc[] }) => {
+import { SponsorAcc } from '../types/EventOverviewType';
+const DetailSponsorAcc = ({ data }: { data: SponsorAcc[] }) => {
 	return (
 		<div className='w-full m-auto overflow-scroll lg:w-1/2 h-1/2'>
 			<Tabel className='overflow-y-scroll'>
