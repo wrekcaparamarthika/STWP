@@ -8,7 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 const DetailSponsorAcc = ({ data }: { data: sponsorAcc[] }) => {
 	return (
 		<div className='w-full m-auto overflow-scroll lg:w-1/2 h-1/2'>
-			<Tabel className='overflow-y-scroll '>
+			<Tabel className='overflow-y-scroll'>
 				<thead>
 					<tr className='font-bold capitalize bg-slate-50'>
 						<TabelHead>no</TabelHead>

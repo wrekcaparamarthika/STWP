@@ -52,7 +52,7 @@ const TabelDebitKredit = ({ data }: { data: Result[] }) => {
 											? 'text-green-600'
 											: 'text-red-600'
 									} font-bold text-center`}>
-									{item.percentage > 1 ? '+' : '-'}
+									{item.percentage > 1 ? '▲' : '▼'}
 									{formatPercentage(item.percentage, 2, 2)}
 								</TabelBody>
 							) : null}

@@ -25,4 +25,4 @@ export type SponsorAcc = {
 	barang: string;
 	demand: string;
 };
-export type Rab = { category: string; total: number };
+export type Rab = { category: string; total: string };

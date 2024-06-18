@@ -44,7 +44,7 @@ const EventOverviewSections = () => {
 			dataOverview.resultDebitKredit[1]?.total -
 		1;
 	return (
-		<section className='flex flex-col gap-10 px-5'>
+		<section className='flex flex-col gap-10 px-5 pb-10'>
 			<h1 className='text-4xl text-center'>
 				Event Overview <br />
 				HUT. STWP - 47
