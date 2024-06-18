@@ -1,16 +1,18 @@
-import { date } from '../Sections/EventOverviewSections';
-import Table, { TableBody, TableHead } from './Table';
 import Map from '../utils/Map';
-const Timeline = ({ data }: { data: Array<date> }) => {
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { ResultDate } from '../types/EventOverviewType';
+import { Tabel, TabelHead, TabelBody } from './Tabel';
+const Timeline = ({ data }: { data: ResultDate[] }) => {
 	return (
-		<Table>
+		<Tabel>
 			<thead>
 				<tr>
-					<TableHead
+					<TabelHead
 						colSpan={2}
 						className='bg-slate-50'>
 						Timeline
-					</TableHead>
+					</TabelHead>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,17 +24,17 @@ const Timeline = ({ data }: { data: Array<date> }) => {
 							className={`${
 								index % 2 === 0 ? '' : 'bg-slate-50'
 							}`}>
-							<TableBody className='text-start'>
-								{item.category}
-							</TableBody>
-							<TableBody className='text-end'>
-								{item.value}
-							</TableBody>
+							<TabelBody className='text-start'>
+								{item.category || <Skeleton />}
+							</TabelBody>
+							<TabelBody className='text-end'>
+								{item.value || <Skeleton />}
+							</TabelBody>
 						</tr>
 					)}
 				/>
 			</tbody>
-		</Table>
+		</Tabel>
 	);
 };
 

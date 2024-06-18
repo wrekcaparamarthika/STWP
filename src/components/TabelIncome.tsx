@@ -1,10 +1,12 @@
-import { result } from '../Sections/EventOverviewSections';
+import { result } from '../Sections/x';
 import Map from '../utils/Map';
 import formatCurrency from '../utils/FormatCurrency';
-import { TableBody, TableHead, Table } from './Table';
-const TableIncome = ({ data }: { data: Array<result> }) => {
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { Tabel, TabelBody, TabelHead } from './Tabel';
+const TabelIncome = ({ data }: { data: result[] }) => {
 	return (
-		<Table>
+		<Tabel>
 			<caption className='text-lg'>
 				Global Pendapatan/Pemasukan HUT. STWP - 47
 			</caption>
@@ -21,8 +23,8 @@ const TableIncome = ({ data }: { data: Array<result> }) => {
 			</caption>
 			<thead>
 				<tr className='text-lg capitalize bg-slate-50'>
-					<TableHead>source</TableHead>
-					<TableHead>Rp.-</TableHead>
+					<TabelHead>source</TabelHead>
+					<TabelHead>Rp.-</TabelHead>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,16 +34,16 @@ const TableIncome = ({ data }: { data: Array<result> }) => {
 						<tr
 							key={index}
 							className={index % 2 === 0 ? '' : 'bg-slate-50'}>
-							<TableBody>{item.source}</TableBody>
-							<TableBody className='text-end'>
-								{formatCurrency(item.total)}
-							</TableBody>
+							<TabelBody>{item.source || <Skeleton />}</TabelBody>
+							<TabelBody className='text-end'>
+								{formatCurrency(item.total) || <Skeleton />}
+							</TabelBody>
 						</tr>
 					)}
 				/>
 			</tbody>
-		</Table>
+		</Tabel>
 	);
 };
 
-export default TableIncome;
+export default TabelIncome;

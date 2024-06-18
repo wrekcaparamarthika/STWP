@@ -1,7 +1,9 @@
-import { listSponsor } from '../Sections/EventOverviewSections';
-import { TableHead, Table, TableBody } from './Table';
+import { listSponsor } from '../Sections/x';
+import { Tabel, TabelBody, TabelHead } from './Tabel';
 import Map from '../utils/Map';
 import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 const DetailSponsor = ({ data }: { data: Array<listSponsor> }) => {
 	return (
 		<div>
@@ -17,7 +19,7 @@ const DetailSponsor = ({ data }: { data: Array<listSponsor> }) => {
 					/>
 				</VictoryChart>
 			</div>
-			<Table>
+			<Tabel>
 				<caption className='text-lg'>
 					List Status Sponsorship Event HUT. STWP - 47
 				</caption>
@@ -33,8 +35,8 @@ const DetailSponsor = ({ data }: { data: Array<listSponsor> }) => {
 				</caption>
 				<thead>
 					<tr className='bg-slate-50'>
-						<TableHead>Status</TableHead>
-						<TableHead>#</TableHead>
+						<TabelHead>Status</TabelHead>
+						<TabelHead>#</TabelHead>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,15 +48,17 @@ const DetailSponsor = ({ data }: { data: Array<listSponsor> }) => {
 								className={`${
 									index % 2 === 0 ? '' : 'bg-slate-50'
 								}`}>
-								<TableBody>{item.category}</TableBody>
-								<TableBody className='text-end'>
-									{item.total}
-								</TableBody>
+								<TabelBody>
+									{item.category || <Skeleton />}
+								</TabelBody>
+								<TabelBody className='text-end'>
+									{item.total || <Skeleton />}
+								</TabelBody>
 							</tr>
 						)}
 					/>
 				</tbody>
-			</Table>
+			</Tabel>
 		</div>
 	);
 };

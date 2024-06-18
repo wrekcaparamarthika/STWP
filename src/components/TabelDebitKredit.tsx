@@ -1,16 +1,18 @@
-import { TableBody, Table, TableHead } from './Table';
-import { result } from '../Sections/EventOverviewSections';
 import Map from '../utils/Map';
 import formatCurrency from '../utils/FormatCurrency';
 import formatPercentage from '../utils/FormatPercentage';
-const TableDebitKredit = ({ data }: { data: Array<result> }) => {
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { Tabel, TabelBody, TabelHead } from './Tabel';
+import { Result } from '../types/EventOverviewType';
+const TabelDebitKredit = ({ data }: { data: Result[] }) => {
 	const profitLoss = data[0]?.total / data[1]?.total - 1;
 	const findIndex = data.findIndex((_, index) => index === 0);
 	if (findIndex !== -1) {
 		data[findIndex] = { ...data[findIndex], percentage: profitLoss };
 	}
 	return (
-		<Table>
+		<Tabel>
 			<caption className='text-lg'>
 				Global Event HUT. STWP Profit/Loss
 			</caption>
@@ -24,9 +26,9 @@ const TableDebitKredit = ({ data }: { data: Array<result> }) => {
 			</caption>
 			<thead>
 				<tr className='bg-slate-50'>
-					<TableHead>Global Event Profit/Loss</TableHead>
-					<TableHead>Rp.-</TableHead>
-					<TableHead>%</TableHead>
+					<TabelHead>Global Event Profit/Loss</TabelHead>
+					<TabelHead>Rp.-</TabelHead>
+					<TabelHead>%</TabelHead>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,12 +40,12 @@ const TableDebitKredit = ({ data }: { data: Array<result> }) => {
 							className={`${
 								index % 2 === 0 ? '' : 'bg-slate-50'
 							}`}>
-							<TableBody>{item.source}</TableBody>
-							<TableBody className='text-end'>
+							<TabelBody>{item.source || <Skeleton />}</TabelBody>
+							<TabelBody className='text-end'>
 								{formatCurrency(item.total)}
-							</TableBody>
+							</TabelBody>
 							{item.percentage ? (
-								<TableBody
+								<TabelBody
 									rowSpan={3}
 									className={`${
 										item.percentage > 1
@@ -52,14 +54,14 @@ const TableDebitKredit = ({ data }: { data: Array<result> }) => {
 									} font-bold text-center`}>
 									{item.percentage > 1 ? '+' : '-'}
 									{formatPercentage(item.percentage, 2, 2)}
-								</TableBody>
+								</TabelBody>
 							) : null}
 						</tr>
 					)}
 				/>
 			</tbody>
-		</Table>
+		</Tabel>
 	);
 };
 
-export default TableDebitKredit;
+export default TabelDebitKredit;

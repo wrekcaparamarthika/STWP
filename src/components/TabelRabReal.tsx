@@ -1,10 +1,11 @@
-import Table, { TableBody, TableHead } from './Table';
-import { rab } from '../Sections/EventOverviewSections';
 import Map from '../utils/Map';
-
-const TabelRabReal = ({ data }: { data: Array<rab> }) => {
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { Tabel, TabelBody, TabelHead } from './Tabel';
+import { Rab } from '../types/EventOverviewType';
+const TabelRabReal = ({ data }: { data: Rab[] }) => {
 	return (
-		<Table>
+		<Tabel>
 			<caption className='text-justify caption-bottom'>
 				Adapun rincian dari Rab Real yaitu Uang Masuk sejumlah&nbsp;
 				{data[2]?.total}&nbsp; dikurangi dengan Rab Real sejumlah&nbsp;
@@ -16,7 +17,7 @@ const TabelRabReal = ({ data }: { data: Array<rab> }) => {
 			</caption>
 			<thead>
 				<tr className='bg-slate-50'>
-					<TableHead colSpan={2}>Rab Real dan Kekurangan</TableHead>
+					<TabelHead colSpan={2}>Rab Real dan Kekurangan</TabelHead>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,15 +29,17 @@ const TabelRabReal = ({ data }: { data: Array<rab> }) => {
 							className={`${
 								index % 2 === 0 ? '' : 'bg-slate-50'
 							}`}>
-							<TableBody>{item.category}</TableBody>
-							<TableBody className='text-end'>
-								{item.total}
-							</TableBody>
+							<TabelBody>
+								{item.category || <Skeleton />}
+							</TabelBody>
+							<TabelBody className='text-end'>
+								{item.total || <Skeleton />}
+							</TabelBody>
 						</tr>
 					)}
 				/>
 			</tbody>
-		</Table>
+		</Tabel>
 	);
 };
 

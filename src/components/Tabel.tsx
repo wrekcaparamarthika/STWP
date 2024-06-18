@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from '../utils/cn';
-const TableHead = ({
+const TabelHead = ({
 	children,
 	className,
 	rowSpan,
@@ -18,7 +18,7 @@ const TableHead = ({
 		</td>
 	);
 };
-const TableBody = ({
+const TabelBody = ({
 	className,
 	children,
 	rowSpan,
@@ -32,7 +32,7 @@ const TableBody = ({
 	);
 };
 
-const Table = ({
+const Tabel = ({
 	className,
 	children,
 }: React.TableHTMLAttributes<HTMLTableElement>) => {
@@ -47,5 +47,4 @@ const Table = ({
 	);
 };
 
-export default Table;
-export { TableHead, TableBody, Table };
+export { Tabel, TabelBody, TabelHead };

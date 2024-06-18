@@ -1,21 +1,22 @@
 import React from 'react';
-import { sponsorAcc } from '../Sections/EventOverviewSections';
-import Table, { TableBody, TableHead } from './Table';
+import { sponsorAcc } from '../Sections/x';
+import { Tabel, TabelBody, TabelHead } from './Tabel';
 import Map from '../utils/Map';
 import formatCurrency from '../utils/FormatCurrency';
-
-const DetailSponsorAcc = ({ data }: { data: Array<sponsorAcc> }) => {
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+const DetailSponsorAcc = ({ data }: { data: sponsorAcc[] }) => {
 	return (
-		<div className='w-full overflow-scroll h-1/2'>
-			<Table className='overflow-y-scroll '>
+		<div className='w-full m-auto overflow-scroll lg:w-1/2 h-1/2'>
+			<Tabel className='overflow-y-scroll '>
 				<thead>
 					<tr className='font-bold capitalize bg-slate-50'>
-						<TableHead>no</TableHead>
-						<TableHead>nama</TableHead>
-						<TableHead>dana</TableHead>
-						<TableHead>jasa</TableHead>
-						<TableHead>barang</TableHead>
-						<TableHead>demand</TableHead>
+						<TabelHead>no</TabelHead>
+						<TabelHead>nama</TabelHead>
+						<TabelHead>dana</TabelHead>
+						<TabelHead>jasa</TabelHead>
+						<TabelHead>barang</TabelHead>
+						<TabelHead>demand</TabelHead>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,29 +30,31 @@ const DetailSponsorAcc = ({ data }: { data: Array<sponsorAcc> }) => {
 								}`}>
 								{!item.index ? null : (
 									<React.Fragment>
-										<TableBody>{item.index}</TableBody>
-										<TableBody className='whitespace-nowrap'>
-											{item.nama}
-										</TableBody>
-										<TableBody className='whitespace-nowrap text-end'>
+										<TabelBody>
+											{item.index || <Skeleton />}
+										</TabelBody>
+										<TabelBody className='whitespace-nowrap'>
+											{item.nama || <Skeleton />}
+										</TabelBody>
+										<TabelBody className='whitespace-nowrap text-end'>
 											{formatCurrency(item.dana)}
-										</TableBody>
-										<TableBody className='whitespace-nowrap'>
+										</TabelBody>
+										<TabelBody className='whitespace-nowrap'>
 											{item.jasa}
-										</TableBody>
-										<TableBody className='whitespace-nowrap'>
+										</TabelBody>
+										<TabelBody className='whitespace-nowrap'>
 											{item.barang}
-										</TableBody>
-										<TableBody className='whitespace-nowrap'>
+										</TabelBody>
+										<TabelBody className='whitespace-nowrap'>
 											{item.demand}
-										</TableBody>
+										</TabelBody>
 									</React.Fragment>
 								)}
 							</tr>
 						)}
 					/>
 				</tbody>
-			</Table>
+			</Tabel>
 		</div>
 	);
 };

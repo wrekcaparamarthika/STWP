@@ -1,12 +1,13 @@
-import { detailKupon } from '../Sections/EventOverviewSections';
-import { TableHead, TableBody, Table } from './Table';
 import Map from '../utils/Map';
 import formatCurrency from '../utils/FormatCurrency';
 import formatPercentage from '../utils/FormatPercentage';
-
-const TableDetailKupon = ({ data }: { data: Array<detailKupon> }) => {
+import { Tabel, TabelBody, TabelHead } from './Tabel';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { DetailKupon } from '../types/EventOverviewType';
+const TabelDetailKupon = ({ data }: { data: DetailKupon[] }) => {
 	return (
-		<Table className=''>
+		<Tabel className=''>
 			<caption className='text-lg caption-top'>
 				Global Penjualan Kupon Per - Quarter <br />{' '}
 				{new Intl.DateTimeFormat('en-ID', {
@@ -33,10 +34,10 @@ const TableDetailKupon = ({ data }: { data: Array<detailKupon> }) => {
 			</caption>
 			<thead>
 				<tr className='text-lg text-center capitalize bg-slate-50'>
-					<TableHead>quarter</TableHead>
-					<TableHead>#</TableHead>
-					<TableHead>Rp.-</TableHead>
-					<TableHead>%</TableHead>
+					<TabelHead>quarter</TabelHead>
+					<TabelHead>#</TabelHead>
+					<TabelHead>Rp.-</TabelHead>
+					<TabelHead>%</TabelHead>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,22 +47,24 @@ const TableDetailKupon = ({ data }: { data: Array<detailKupon> }) => {
 						<tr
 							key={index}
 							className={index % 2 === 0 ? '' : 'bg-slate-50'}>
-							<TableBody>{item.quarter}</TableBody>
-							<TableBody className='text-center'>
-								{item.number}
-							</TableBody>
-							<TableBody className='text-end'>
+							<TabelBody>
+								{item.quarter || <Skeleton />}
+							</TabelBody>
+							<TabelBody className='text-center'>
+								{item.number || <Skeleton />}
+							</TabelBody>
+							<TabelBody className='text-end'>
 								{formatCurrency(item.profit)}
-							</TableBody>
-							<TableBody className='text-end'>
+							</TabelBody>
+							<TabelBody className='text-end'>
 								{formatPercentage(item.precentage)}
-							</TableBody>
+							</TabelBody>
 						</tr>
 					)}
 				/>
 			</tbody>
-		</Table>
+		</Tabel>
 	);
 };
 
-export default TableDetailKupon;
+export default TabelDetailKupon;
