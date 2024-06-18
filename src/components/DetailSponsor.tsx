@@ -1,10 +1,10 @@
-import { listSponsor } from '../Sections/x';
 import { Tabel, TabelBody, TabelHead } from './Tabel';
 import Map from '../utils/Map';
 import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-const DetailSponsor = ({ data }: { data: Array<listSponsor> }) => {
+import { ListSponsor } from '../types/EventOverviewType';
+const DetailSponsor = ({ data }: { data: ListSponsor[] }) => {
 	return (
 		<div>
 			<h1 className='text-4xl text-center'>Progress Sponsorship</h1>

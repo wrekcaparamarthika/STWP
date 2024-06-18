@@ -1,10 +1,10 @@
-import { result } from '../Sections/x';
 import Map from '../utils/Map';
 import formatCurrency from '../utils/FormatCurrency';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { Tabel, TabelBody, TabelHead } from './Tabel';
-const TabelIncome = ({ data }: { data: result[] }) => {
+import { Result } from '../types/EventOverviewType';
+const TabelIncome = ({ data }: { data: Result[] }) => {
 	return (
 		<Tabel>
 			<caption className='text-lg'>
