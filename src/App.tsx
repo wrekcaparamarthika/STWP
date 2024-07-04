@@ -16,6 +16,8 @@ import GlobalTiketing from './sections/GlobalTiketing';
 import StatusSponsorship from './sections/StatusSponsorship';
 import { useQuery } from '@tanstack/react-query';
 import { request } from './lib/utils';
+import { Alert, AlertDescription, AlertTitle } from './components/ui/alert';
+import { RocketIcon } from '@radix-ui/react-icons';
 
 const App = () => {
 	// const [dataOverview, setDataOverview] = React.useState<DataOverview>(
@@ -55,7 +57,13 @@ const App = () => {
 			<IFElseComponents
 				state={!fetchedOverview && !fetchedSponsor}
 				stateTrue={
-					<h1>Mohon tunggu sebentar data masih di proses...</h1>
+					<Alert className='w-full lg:w-1/2'>
+						<RocketIcon className='w-4 h-4' />
+						<AlertTitle>Loading...</AlertTitle>
+						<AlertDescription>
+							Mohon tunggu sebentar data masih diproses!
+						</AlertDescription>
+					</Alert>
 				}
 				stateFalse={null}
 			/>
