@@ -131,12 +131,22 @@ const GlobalDebitKredit = ({
 			</CardContent>
 			<CardFooter>
 				<CardDescription className='text-justify'>
-					Total Debit Event HUT. STWP - 47 yaitu sebesar&nbsp;
-					{formatCurrency(data[0]?.total)}, Total Kredit Event HUT.
-					STWP - 47 yaitu {formatCurrency(data[1]?.total)} dengan
-					Saldo akhir sejumlah {formatCurrency(data[2]?.total)} atau
-					profit/loss sejumlah {profitLoss > -1 ? '+' : '-'}
-					{formatPercentage(profitLoss)}
+					{`
+					Total Debit Event HUT. STWP - 47 yaitu sebesar ${formatCurrency(
+						data[0]?.total
+					)}, Total Kredit Event HUT.
+					STWP - 47 yaitu ${formatCurrency(data[1]?.total)} dengan
+					Saldo akhir sejumlah ${formatCurrency(data[2]?.total)} atau
+					${profitLoss > -1 ? 'total keuntungan' : 'total kerugian'} sejumlah
+					`}
+					<span
+						className={
+							profitLoss ? 'text-green-600' : 'text-red-600'
+						}>
+						{`	${profitLoss > -1 ? '+' : '-'}${formatPercentage(
+							profitLoss
+						)}`}
+					</span>
 				</CardDescription>
 			</CardFooter>
 		</Card>
