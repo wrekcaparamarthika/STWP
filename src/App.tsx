@@ -1,4 +1,3 @@
-import React from 'react';
 import { CardSaldo } from './components/CardSaldo';
 import Bendahara from './sections/Bendahara';
 import Sponsorship from './sections/Sponsorship';
@@ -7,7 +6,6 @@ import {
 	DEFAULT_VALUE_DATA_OVERVIEW,
 	DEFAULT_VALUE_LIST_SPONSOR,
 } from './constants/default';
-import { fetchData } from './lib/axios';
 import { API_OVERVIEW, API_SPONSOR } from './constants/api';
 import { IFElseComponents } from './lib/IFElseComponents';
 import GlobalDebitKredit from './sections/GlobalDebitKredit';

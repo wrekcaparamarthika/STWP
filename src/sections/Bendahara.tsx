@@ -7,13 +7,9 @@ import {
 	TableHeader,
 	TableRow,
 } from '../components/ui/table';
-import { fetchData } from '../lib/axios';
 import { API_REST_API } from '../constants/api';
 import { Api, DataBendahara } from '../interface/EventOverview';
-import {
-	DEFAULT_VALUE_API,
-	DEFAULT_VALUE_DATA_BENDAHARA,
-} from '../constants/default';
+import { DEFAULT_VALUE_API } from '../constants/default';
 import {
 	ColumnFiltersState,
 	createColumnHelper,
@@ -179,7 +175,10 @@ const Bendahara = () => {
 						{table.getColumn('PIC') && (
 							<DataTableFacetedFilter
 								column={table.getColumn('PIC')}
-								options={getDropDownValues(data.sponsor, 'PIC')}
+								options={getDropDownValues(
+									data.bendahara,
+									'PIC'
+								)}
 								title='PIC'
 							/>
 						)}
@@ -223,7 +222,7 @@ const Bendahara = () => {
 					{table.getColumn('PIC') && (
 						<DataTableFacetedFilter
 							column={table.getColumn('PIC')}
-							options={getDropDownValues(data.sponsor, 'PIC')}
+							options={getDropDownValues(data.bendahara, 'PIC')}
 							title='PIC'
 						/>
 					)}

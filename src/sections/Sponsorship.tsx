@@ -1,7 +1,6 @@
 import React from 'react';
 import { Api, DataSponsor } from '../interface/EventOverview';
-import { DEFAULT_VALUE_API, DEFAULT_VALUE_SPONSOR } from '../constants/default';
-import { fetchData } from '../lib/axios';
+import { DEFAULT_VALUE_API } from '../constants/default';
 import { API_REST_API } from '../constants/api';
 import {
 	Card,
