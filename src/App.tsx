@@ -71,6 +71,8 @@ const App = () => {
 				saldo={globalSaldo}
 				percentage={globalPercentage}
 				title='global saldo'
+				isDescriptionText={true}
+				isFetched={!fetchedOverview}
 			/>
 
 			<GlobalDebitKredit data={dataOverview.resultDebitKredit} />
@@ -80,6 +82,7 @@ const App = () => {
 			<CardSaldo
 				saldo={dataSponsor.freshMoney}
 				title='total freshmoney sponsorship'
+				isFetched={!fetchedSponsor}
 			/>
 			<StatusSponsorship />
 			<Sponsorship />
