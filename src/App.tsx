@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { request } from './lib/utils';
 import { Alert, AlertDescription, AlertTitle } from './components/ui/alert';
 import { RocketIcon } from '@radix-ui/react-icons';
+import React from 'react';
 
 const App = () => {
 	// const [dataOverview, setDataOverview] = React.useState<DataOverview>(
@@ -51,49 +52,63 @@ const App = () => {
 			dataOverview.resultDebitKredit[1]?.total -
 		1;
 	return (
-		<main className='flex items-center justify-center w-full px-2.5 py-10 flex-col gap-2.5'>
-			<IFElseComponents
-				state={!fetchedOverview && !fetchedSponsor}
-				stateTrue={
-					<Alert className='w-full lg:w-1/2'>
-						<RocketIcon className='w-4 h-4' />
-						<AlertTitle>Loading...</AlertTitle>
-						<AlertDescription>
-							Mohon tunggu sebentar data masih diproses!
-						</AlertDescription>
-					</Alert>
-				}
-				stateFalse={null}
-			/>
-			<CardSaldo
-				saldo={globalSaldo}
-				percentage={globalPercentage}
-				title='global saldo'
-				isDescriptionText={true}
-				isFetched={!fetchedOverview}
-			/>
+		<React.Fragment>
+			<main className='flex items-center justify-center w-full px-2.5 py-4 flex-col gap-2.5'>
+				<IFElseComponents
+					state={!fetchedOverview && !fetchedSponsor}
+					stateTrue={
+						<Alert className='w-full lg:w-1/2'>
+							<RocketIcon className='w-4 h-4' />
+							<AlertTitle>Loading...</AlertTitle>
+							<AlertDescription>
+								Mohon tunggu sebentar data masih diproses!
+							</AlertDescription>
+						</Alert>
+					}
+					stateFalse={null}
+				/>
+				<CardSaldo
+					saldo={globalSaldo}
+					percentage={globalPercentage}
+					title='global saldo'
+					isDescriptionText={true}
+					isFetched={!fetchedOverview}
+				/>
 
-			<GlobalDebitKredit
-				data={dataOverview.resultDebitKredit}
-				isFetched={!fetchedOverview}
-			/>
-			<SourceIncome
-				data={dataOverview.resultIncome}
-				isFetched={!fetchedOverview}
-			/>
-			<GlobalTiketing
-				data={dataOverview.resultDetailKupon}
-				isFetched={!fetchedOverview}
-			/>
-			<Bendahara />
-			<CardSaldo
-				saldo={dataSponsor.freshMoney}
-				title='total freshmoney sponsorship'
-				isFetched={!fetchedSponsor}
-			/>
-			<StatusSponsorship />
-			<Sponsorship />
-		</main>
+				<GlobalDebitKredit
+					data={dataOverview.resultDebitKredit}
+					isFetched={!fetchedOverview}
+				/>
+				<SourceIncome
+					data={dataOverview.resultIncome}
+					isFetched={!fetchedOverview}
+				/>
+				<GlobalTiketing
+					data={dataOverview.resultDetailKupon}
+					isFetched={!fetchedOverview}
+				/>
+				<Bendahara />
+				<CardSaldo
+					saldo={dataSponsor.freshMoney}
+					title='total freshmoney sponsorship'
+					isFetched={!fetchedSponsor}
+				/>
+				<StatusSponsorship />
+				<Sponsorship />
+			</main>
+			<footer className='w-full px-2 pb-2 m-auto font-medium text-center lg:w-1/2'>
+				<h1 className=''>Panitia HUT. STWP - 47</h1>
+				<a href='https://ef-studio.vercel.app/'>
+					This site powered by
+					<span className='underline'>
+						{' '}
+						EF-<span className='italic'>S</span>tudi
+						<span className='italic'>o</span>//22
+					</span>
+				</a>
+				<h1>©2024 STWP. All right reserved.</h1>
+			</footer>
+		</React.Fragment>
 	);
 };
 
