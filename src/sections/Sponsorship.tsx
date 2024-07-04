@@ -1,6 +1,6 @@
 import React from 'react';
-import { DataSponsor } from '../interface/EventOverview';
-import { DEFAULT_VALUE_SPONSOR } from '../constants/default';
+import { Api, DataSponsor } from '../interface/EventOverview';
+import { DEFAULT_VALUE_API, DEFAULT_VALUE_SPONSOR } from '../constants/default';
 import { fetchData } from '../lib/axios';
 import { API_REST_API } from '../constants/api';
 import {
@@ -37,8 +37,10 @@ import ButtonPagination from '../components/ButtonPagination';
 import { HeaderToggle } from '../components/HeaderToggle';
 import { ColumnToggle } from '../components/ColumnToggle';
 import { FilterInput } from '../components/FilterInput';
-import { getDropDownValues } from '../lib/utils';
+import { getDropDownValues, request } from '../lib/utils';
 import { DataTableFacetedFilter } from '../components/DataTableFacetedFilter';
+import { useQuery } from '@tanstack/react-query';
+import { Skeleton } from '../components/ui/skeleton';
 const columnHelper = createColumnHelper<DataSponsor>();
 const columns = [
 	columnHelper.accessor('NO', {
@@ -110,22 +112,26 @@ const columns = [
 ];
 
 const Sponsorship = () => {
-	const [data, setData] = React.useState<DataSponsor[]>(
-		DEFAULT_VALUE_SPONSOR
-	);
-
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-	React.useEffect(() => {
-		async function init() {
-			const sponsor = await fetchData(API_REST_API);
-			if (sponsor) setData(sponsor.sponsor);
-		}
-		init();
-	}, []);
+	// const [data, setData] = React.useState<DataSponsor[]>(
+	// 	DEFAULT_VALUE_SPONSOR
+	// );
+	// React.useEffect(() => {
+	// 	async function init() {
+	// 		const sponsor = await fetchData(API_REST_API);
+	// 		if (sponsor) setData(sponsor.sponsor);
+	// 	}
+	// 	init();
+	// }, []);
+	const { data, isFetched } = useQuery({
+		queryKey: ['api'],
+		queryFn: () => request<Api>(API_REST_API),
+		initialData: DEFAULT_VALUE_API,
+	});
 	const table = useReactTable({
-		data,
+		data: data.sponsor,
 		columns,
 		//row
 		getCoreRowModel: getCoreRowModel(),
@@ -150,8 +156,58 @@ const Sponsorship = () => {
 		},
 		initialState: { pagination: { pageSize: 5 } },
 	});
-
-	//Used to show reset button
+	if (!isFetched) {
+		return (
+			<Card className='w-full lg:w-1/2'>
+				<CardHeader>
+					<CardTitle className='capitalize'>
+						<Skeleton className='w-full h-4' />
+					</CardTitle>
+					<FilterInput
+						table={table}
+						placeholder='Filter nama...'
+						column='NAMA'
+					/>
+					<div className='flex items-center justify-between gap-1.5'>
+						<div className='flex-col'>
+							{table.getColumn('STATUS') && (
+								<DataTableFacetedFilter
+									column={table.getColumn('STATUS')}
+									title='STATUS'
+									options={getDropDownValues(
+										data.sponsor,
+										'STATUS'
+									)}
+								/>
+							)}
+						</div>
+						<ColumnToggle table={table} />
+					</div>
+				</CardHeader>
+				<CardContent className='mx-4 border rounded-md'>
+					<Table style={{ width: table.getTotalSize() }}>
+						<TableHeader>
+							<TableRow>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</CardContent>
+				<CardFooter className='px-2 pt-2 pb-4 m-0'>
+					<ButtonPagination table={table} />
+				</CardFooter>
+			</Card>
+		);
+	}
 
 	return (
 		<Card className='w-full lg:w-1/2'>
@@ -168,7 +224,10 @@ const Sponsorship = () => {
 							<DataTableFacetedFilter
 								column={table.getColumn('STATUS')}
 								title='STATUS'
-								options={getDropDownValues(data, 'STATUS')}
+								options={getDropDownValues(
+									data.sponsor,
+									'STATUS'
+								)}
 							/>
 						)}
 					</div>

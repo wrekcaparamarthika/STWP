@@ -75,9 +75,18 @@ const App = () => {
 				isFetched={!fetchedOverview}
 			/>
 
-			<GlobalDebitKredit data={dataOverview.resultDebitKredit} />
-			<SourceIncome data={dataOverview.resultIncome} />
-			<GlobalTiketing data={dataOverview.resultDetailKupon} />
+			<GlobalDebitKredit
+				data={dataOverview.resultDebitKredit}
+				isFetched={!fetchedOverview}
+			/>
+			<SourceIncome
+				data={dataOverview.resultIncome}
+				isFetched={!fetchedOverview}
+			/>
+			<GlobalTiketing
+				data={dataOverview.resultDetailKupon}
+				isFetched={!fetchedOverview}
+			/>
 			<Bendahara />
 			<CardSaldo
 				saldo={dataSponsor.freshMoney}

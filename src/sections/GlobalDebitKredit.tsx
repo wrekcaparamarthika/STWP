@@ -18,17 +18,73 @@ import {
 import { Result } from '../interface/EventOverview';
 import { cn, formatCurrency, formatPercentage } from '../lib/utils';
 import { MapComponents } from '../lib/MapComponents';
+import { Skeleton } from '../components/ui/skeleton';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	data: Result[];
+	isFetched: boolean;
 }
-const GlobalDebitKredit = ({ data, className, style, ...rest }: Props) => {
+const GlobalDebitKredit = ({
+	data,
+	isFetched,
+	className,
+	style,
+	...rest
+}: Props) => {
 	const profitLoss = data[0]?.total / data[1]?.total - 1;
 	const findIndex = data.findIndex((_, index) => index === 0);
 	if (findIndex !== -1) {
 		data[findIndex] = { ...data[findIndex], percentage: profitLoss };
 	}
-	console.log(data);
+	if (isFetched) {
+		return (
+			<Card
+				className={cn('w-full lg:w-1/2', className)}
+				style={{ ...style }}
+				{...rest}>
+				<CardHeader>
+					<CardTitle>
+						<Skeleton className='w-full h-4' />
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</CardContent>
+				<CardFooter>
+					<CardDescription className='w-full'>
+						<Skeleton className='w-full h-14' />
+					</CardDescription>
+				</CardFooter>
+			</Card>
+		);
+	}
 	return (
 		<Card
 			className={cn('w-full lg:w-1/2', className)}

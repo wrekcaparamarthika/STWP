@@ -1,4 +1,5 @@
 import {
+	Api,
 	DataBendahara,
 	DataOverview,
 	DataSponsor,
@@ -80,4 +81,8 @@ export const DEFAULT_VALUE_LIST_SPONSOR: Sponsor = {
 		},
 	],
 	freshMoney: 0,
+};
+export const DEFAULT_VALUE_API: Api = {
+	bendahara: DEFAULT_VALUE_DATA_BENDAHARA,
+	sponsor: DEFAULT_VALUE_SPONSOR,
 };

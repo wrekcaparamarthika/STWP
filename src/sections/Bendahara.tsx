@@ -9,8 +9,11 @@ import {
 } from '../components/ui/table';
 import { fetchData } from '../lib/axios';
 import { API_REST_API } from '../constants/api';
-import { DataBendahara } from '../interface/EventOverview';
-import { DEFAULT_VALUE_DATA_BENDAHARA } from '../constants/default';
+import { Api, DataBendahara } from '../interface/EventOverview';
+import {
+	DEFAULT_VALUE_API,
+	DEFAULT_VALUE_DATA_BENDAHARA,
+} from '../constants/default';
 import {
 	ColumnFiltersState,
 	createColumnHelper,
@@ -38,7 +41,9 @@ import { ColumnToggle } from '../components/ColumnToggle';
 import { HeaderToggle } from '../components/HeaderToggle';
 import { FilterInput } from '../components/FilterInput';
 import { DataTableFacetedFilter } from '../components/DataTableFacetedFilter';
-import { getDropDownValues } from '../lib/utils';
+import { getDropDownValues, request } from '../lib/utils';
+import { useQuery } from '@tanstack/react-query';
+import { Skeleton } from '../components/ui/skeleton';
 
 const columnHelper = createColumnHelper<DataBendahara>();
 const columns = [
@@ -114,21 +119,26 @@ const columns = [
 ];
 
 const Bendahara = () => {
-	const [data, setData] = React.useState<DataBendahara[]>(
-		DEFAULT_VALUE_DATA_BENDAHARA
-	);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>([]);
-	React.useEffect(() => {
-		async function init() {
-			const getData = await fetchData(API_REST_API);
-			if (getData) setData(getData.bendahara);
-		}
-		init();
-	}, [data]);
+	// const [data, setData] = React.useState<DataBendahara[]>(
+	// 	DEFAULT_VALUE_DATA_BENDAHARA
+	// );
+	// React.useEffect(() => {
+	// 	async function init() {
+	// 		const getData = await fetchData(API_REST_API);
+	// 		if (getData) setData(getData.bendahara);
+	// 	}
+	// 	init();
+	// }, [data]);
+	const { data, isFetched } = useQuery({
+		queryKey: ['api'],
+		queryFn: () => request<Api>(API_REST_API),
+		initialData: DEFAULT_VALUE_API,
+	});
 	const table = useReactTable({
-		data,
+		data: data.bendahara,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
@@ -153,7 +163,53 @@ const Bendahara = () => {
 			pagination: { pageSize: 5 },
 		},
 	});
-
+	if (!isFetched) {
+		return (
+			<Card className='w-full rounded-md sm:w-1/2'>
+				<CardHeader className='pb-4'>
+					<CardTitle className='capitalize'>
+						<Skeleton className='w-full h-4' />
+					</CardTitle>
+					<FilterInput
+						table={table}
+						placeholder='Filter ket...'
+						column='KET'
+					/>
+					<div className='flex items-center justify-between gap-1.5'>
+						{table.getColumn('PIC') && (
+							<DataTableFacetedFilter
+								column={table.getColumn('PIC')}
+								options={getDropDownValues(data.sponsor, 'PIC')}
+								title='PIC'
+							/>
+						)}
+						<ColumnToggle table={table} />
+					</div>
+				</CardHeader>
+				<CardContent className='mx-4 border rounded-md'>
+					<Table style={{ width: table.getTotalSize() }}>
+						<TableHeader>
+							<TableRow>
+								<TableHead>
+									<Skeleton className='w-full h-4 ' />
+								</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</CardContent>
+				<CardFooter className='p-2 pb-4'>
+					<ButtonPagination table={table} />
+				</CardFooter>
+			</Card>
+		);
+	}
 	return (
 		<Card className='w-full rounded-md sm:w-1/2'>
 			<CardHeader className='pb-4'>
@@ -167,7 +223,7 @@ const Bendahara = () => {
 					{table.getColumn('PIC') && (
 						<DataTableFacetedFilter
 							column={table.getColumn('PIC')}
-							options={getDropDownValues(data, 'PIC')}
+							options={getDropDownValues(data.sponsor, 'PIC')}
 							title='PIC'
 						/>
 					)}

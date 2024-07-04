@@ -18,10 +18,73 @@ import {
 	TableRow,
 } from '../components/ui/table';
 import { MapComponents } from '../lib/MapComponents';
+import { Skeleton } from '../components/ui/skeleton';
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	data: DetailKupon[];
+	isFetched: boolean;
 }
-const GlobalTiketing = ({ data, className, style, ...rest }: Props) => {
+const GlobalTiketing = ({
+	data,
+	isFetched,
+	className,
+	style,
+	...rest
+}: Props) => {
+	if (isFetched) {
+		return (
+			<Card
+				className={cn(`w-full lg:w-1/2`, className)}
+				style={{ ...style }}
+				{...rest}>
+				<CardHeader>
+					<CardTitle className='capitalize'>
+						<Skeleton className='w-full h-4' />
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Table>
+						<TableHeader>
+							<TableRow className='capitalize'>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+								<TableHead>
+									<Skeleton className='w-full h-4' />
+								</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='w-full h-4' />
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</CardContent>
+				<CardFooter>
+					<CardDescription className='w-full'>
+						<Skeleton className='w-full h-14' />
+					</CardDescription>
+				</CardFooter>
+			</Card>
+		);
+	}
 	return (
 		<Card
 			className={cn(`w-full lg:w-1/2`, className)}
